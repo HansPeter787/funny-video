@@ -2,45 +2,60 @@
 <html lang="de">
 <head>
   <meta charset="UTF-8">
-  <title>Funny Video</title>
+  <title>Totally Harmless</title>
   <style>
-    body {
+    html, body {
+      margin: 0;
+      padding: 0;
       background: black;
-      color: white;
-      text-align: center;
-      font-family: Arial, sans-serif;
-      margin-top: 100px;
-    }
-    button {
-      font-size: 24px;
-      padding: 15px 30px;
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
       cursor: pointer;
+    }
+    #start {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      font-size: 3rem;
+      font-family: Arial, sans-serif;
     }
     video {
       display: none;
-      width: 80%;
-      margin-top: 30px;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
     }
   </style>
 </head>
 <body>
 
-  <h1>Klick nicht.</h1>
-  <button onclick="startJumpscare()">KLICK</button>
+<div id="start">KLICK.</div>
 
-  <video id="video" src="jumpscare.mp4"></video>
-  <audio id="sound" src="scream.mp3"></audio>
+<video id="video" src="jumpscare.mp4"></video>
+<audio id="sound" src="scream.mp3"></audio>
 
-  <script>
-    function startJumpscare() {
-      const video = document.getElementById("video");
-      const sound = document.getElementById("sound");
+<script>
+  const start = document.getElementById("start");
+  const video = document.getElementById("video");
+  const sound = document.getElementById("sound");
 
-      video.style.display = "block";
-      video.play();
-      sound.play();
+  start.addEventListener("click", async () => {
+    // Vollbild erzwingen
+    if (document.documentElement.requestFullscreen) {
+      await document.documentElement.requestFullscreen();
     }
-  </script>
+
+    start.style.display = "none";
+    video.style.display = "block";
+
+    video.play();
+    sound.play();
+  });
+</script>
 
 </body>
 </html>
